@@ -66,16 +66,32 @@ class TestSmooth(unittest.TestCase):
         data_s = self.utils.Smooth(data_mpi, sigma)
         data_real = self.GaussInRealSpace(self.data1, self.pos1, sigma)
         data_real = np.array_split(data_real, self.comm.size)[self.comm.rank]
-        if self.comm.size == 1:
-            self.assertEqual(data_s.sum(), 1)
-        else:
-            data_sum = self.comm.reduce(data_s, root=0)
-            if self.comm.rank == 0:
-                self.assertEqual(data_sum.sum(), 1.)
         np.testing.assert_allclose(
             data_real, data_s, atol=1e-3 * data_real.max())
 
     def test_smooth2(self):
+        sigma = 20.
+        data_mpi = np.array_split(self.data2, self.comm.size)[self.comm.rank]
+        data_s = self.utils.Smooth(data_mpi, sigma)
+        data_real = self.GaussInRealSpace(self.data2, self.pos2, sigma)
+        data_real = np.array_split(data_real, self.comm.size)[self.comm.rank]
+        np.testing.assert_allclose(
+            data_real, data_s, atol=1e-3 * data_real.max())
+
+    def test_smooth3(self):
+        sigma = 20.
+        data_mpi = np.array_split(self.data1, self.comm.size)[self.comm.rank]
+        data_s = self.utils.Smooth(data_mpi, sigma)
+        data_real = self.GaussInRealSpace(self.data1, self.pos1, sigma)
+        data_real = np.array_split(data_real, self.comm.size)[self.comm.rank]
+        if self.comm.size == 1:
+            self.assertEqual(data_s.sum(), 1.)
+        else:
+            data_sum = self.comm.reduce(data_s, root=0)
+            if self.comm.rank == 0:
+                self.assertEqual(data_sum.sum(), 1.)
+
+    def test_smooth4(self):
         sigma = 20.
         data_mpi = np.array_split(self.data2, self.comm.size)[self.comm.rank]
         data_s = self.utils.Smooth(data_mpi, sigma)
@@ -87,8 +103,8 @@ class TestSmooth(unittest.TestCase):
             data_sum = self.comm.reduce(data_s, root=0)
             if self.comm.rank == 0:
                 self.assertEqual(data_sum.sum(), 4.)
-        np.testing.assert_allclose(
-            data_real, data_s, atol=1e-3 * data_real.max())
+
+
 
 
 if __name__ == '__main__':

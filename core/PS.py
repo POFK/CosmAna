@@ -50,12 +50,12 @@ class PS(Utils):
         else:
             raise ValueError('binstyle should be "log" or "linear".')
 
-    def logspace_wrapper(func):
-        def wrapper(*args):
+    def logspace_wrapper(self, func):
+        def wrapper(*args, **kwargs):
             a = args[0]
             b = args[1]
             args = args[2:]
-            return func(np.log10(a), np.log10(b), *args)
+            return func(np.log10(a), np.log10(b), *args, **kwargs)
         return wrapper
 
     def Run_Getbin1d(self):
