@@ -15,7 +15,6 @@ class Utils(Ana, fft):
         return window
 
     def _DeWindow(self):
-        ''' cic window function.'''
         window = (np.sinc(1. / self.Ng * self.mpi_fn[self.rank][:, None, None])
                   * np.sinc(1. / self.Ng * self.fn[None, :, None])
                   * np.sinc(1. / self.Ng * self.fn[None, None, :]))

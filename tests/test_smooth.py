@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-from CosmAna.core.utils import Utils
+from CosmAna import Utils
 from mpi4py import MPI
 import mpiunittest as unittest
 import numpy as np
@@ -9,7 +9,7 @@ import numpy as np
 @unittest.skipIf(MPI.COMM_WORLD.Get_size() > 4, 'mpi-world-size>4')
 class TestSmooth(unittest.TestCase):
     def tearDown(self):
-        pass
+        del self.utils
 
     def setUp(self):
         Ng = 32

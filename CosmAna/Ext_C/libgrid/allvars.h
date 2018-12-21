@@ -13,8 +13,8 @@
 #define PI   3.141592653
 #define kf   (2.*PI/L)
 
-extern int Index();
-extern int *InverIndexK();
+extern int Index(int,int,int,int);
+extern int *InverIndexK(int,int);
 
 struct READ_POSITION
 {

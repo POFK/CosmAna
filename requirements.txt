@@ -1,4 +1,3 @@
 numpy
-scipy
-matplotlib
-swig
+cython
+mpi4py == 3.0.0

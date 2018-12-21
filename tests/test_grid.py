@@ -6,7 +6,7 @@ import numpy as np
 
 
 @unittest.skipIf(MPI.COMM_WORLD.Get_size() > 4, 'mpi-world-size>4')
-class TestSmooth(unittest.TestCase):
+class TestGrid(unittest.TestCase):
 
     def tearDown(self):
         pass

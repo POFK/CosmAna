@@ -1,0 +1,8 @@
+include MANIFEST.in README.md requirements.txt 
+graft CosmAna/Ext_C
+graft CosmAna/exam
+recursive-exclude CosmAna *.o *.so *.exe *.pyc
+recursive-exclude tests *.pyc
+
+prune build
+graft tests

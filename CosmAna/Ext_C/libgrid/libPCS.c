@@ -38,7 +38,7 @@ double* Griding_PCS(int N, int L, int SIZE, struct READ_POSITION* pos)
 	int ibin, jbin, kbin, i, j, k, ii, jj, kk;
 	double value = 1.;
 	float H = (float)L / (float)N;
-	float si, sj, sk, w;
+	float w;
 	double *gridP = (double *)malloc(N * N * N * sizeof(double));
 	memset(gridP, 0, sizeof(double) * N * N * N); // initialization
 	long n;

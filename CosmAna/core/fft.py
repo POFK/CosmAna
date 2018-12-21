@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-from CosmAna.libfftw import libfftw 
+from CosmAna.Ext_C import libfftw
 '''!!! libfftw must be imported first !!!'''
 import numpy as np
 from Base import Base

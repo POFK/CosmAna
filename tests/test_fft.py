@@ -7,7 +7,7 @@ import numpy as np
 import sys
 
 @unittest.skipIf(MPI.COMM_WORLD.Get_size() > 4, 'mpi-world-size>4')
-class TestSmooth(unittest.TestCase):
+class TestFFT(unittest.TestCase):
 
     def tearDown(self):
         pass
