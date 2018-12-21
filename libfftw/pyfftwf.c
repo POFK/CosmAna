@@ -7,9 +7,9 @@
 #include<stdio.h>
 #include<string.h>
 #include<memory.h>
-#include"fftw3-mpi.h"
 #include"mpi.h"
-void PyFFTW_FORWARD(MPI_Comm comm, int N, float *data_in_real, int size_in1, float *data_in_imag, int size_in2, float *data_out_real, int size_out1, float *data_out_imag, int size_out2)
+#include"fftw3-mpi.h"
+void PyFFTW_FORWARD(MPI_Comm comm, int N, float *data_in_real, float *data_in_imag, float *data_out_real, float *data_out_imag)
 {
 	/*There is a normalization of N**3*/
 	int my_rank, i, j, k;
@@ -47,7 +47,7 @@ void PyFFTW_FORWARD(MPI_Comm comm, int N, float *data_in_real, int size_in1, flo
 	fftwf_free(data_in);
 	fftwf_free(data_out);
 }
-void PyFFTW_BACKWARD(MPI_Comm comm, int N, float *data_in_real, int size_in1, float *data_in_imag, int size_in2, float *data_out_real, int size_out1, float *data_out_imag, int size_out2)
+void PyFFTW_BACKWARD(MPI_Comm comm, int N, float *data_in_real, float *data_in_imag, float *data_out_real, float *data_out_imag)
 {
 	/*There is a normalization of N**3*/
 	int my_rank, i, j, k;
