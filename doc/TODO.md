@@ -2,7 +2,7 @@
 
 - [x] add installation document
 - [ ] add jupyter example
-- ~~ [ ] add callable parallel FFTW function by pure ctypes~~
+- [ ] ~~add callable parallel FFTW function by pure ctypes~~
 - [x] add callable parallel FFTW function by cython
 - [x] add setup.py file
 - [x] add unittest
