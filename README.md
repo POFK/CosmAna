@@ -1,15 +1,15 @@
 # CosmAna
 
 
-## Dependence
+## Dependences
 ### install [Miniconda](https://conda.io/miniconda.html) \(python2.7)
 
 ```
-conda create -n test python=2.7
-source activate test
+conda create -n CosmAna python=2.7
+source activate CosmAna
 conda install --file requirements.txt
 ```
-If the download speed is too slow, you can add the following lines to "~/.condarc".
+If the download speed is too slow, you can add the following lines to `~/.condarc`.
 ```
 channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
@@ -17,24 +17,23 @@ channels:
 show_channel_urls: true
 ```
 
-### install mpich
+### install [mpich](http://www.mpich.org/static/downloads/3.2.1/mpich-3.2.1.tar.gz)
 
 ```
-tar -xvf mpich-3.2.tar.gz
-cd mpich-3.2
-./configure --prefix=$HOME/local/mpich-3.2
+tar -xvf mpich-3.2.1.tar.gz
+cd mpich-3.2.1
+./configure --prefix=$HOME/local/mpich-3.2.1
 make
 make install
 ```
-
-### install mpi4py
+### install [mpi4py](https://github.com/mpi4py/mpi4py/archive/3.0.0.zip)
 ```
 tar -xvf mpi4py-3.0.0.tar.gz
 cd mpi4py-3.0.0
 ```
 open file "mpi.cfg" and set
 ```
-mpi_dir = path/to/mpich-3.2
+mpi_dir = path/to/mpich-3.2.1
 ```
 then run
 ```
@@ -62,7 +61,15 @@ add LD_LIBRARY_PATH:
 export LD_LIBRARY_PATH=$HOME/local/fftw-3.3.5/lib:$LD_LIBRARY_PATH
 ```
 
+### install CosmAna
+```
+python setup.py build_ext
+python setup.py develop
+```
+
 ### Option
+- matplotlib:
+`conda install matplotlib`
 - jupyter notebook
 - jupyter ipython cluster
 

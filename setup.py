@@ -14,7 +14,7 @@ os.environ["CC"] = 'mpicc'  # set CC compiler
 os.environ["LDSHARED"] = 'mpicc -shared'  # set linker_so
 FFTW_INCL = '/home/mtx/local/fftw-3.3.5/include'
 FFTW_LIBS = '/home/mtx/local/fftw-3.3.5/lib'
-MPI_INCL = '/home/mtx/local/mpich-3.2/include'
+MPI_INCL = '/home/mtx/local/mpich-3.2.1/include'
 INCL = []
 # ================================================================================
 
@@ -76,7 +76,7 @@ NAME = 'CosmAna'
 
 PACKAGES = find_packages('.')  # ,['pack1', 'pack2', 'Ext_C']
 
-SCRIPTS = ['']
+SCRIPTS = ['CosmAna/exam/smooth.py']
 
 DESCRIPTION = 'A Python package for cosmological data analysis.'
 
@@ -138,6 +138,7 @@ setup(
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Programming Language ::Python',
+        'Programming Language :: Python :: 2',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
     ],
@@ -150,7 +151,7 @@ setup(
     packages=PACKAGES,
     scripts=SCRIPTS,
     data_files=DATA_FILES,
-    install_requires=dependencies,
+#   install_requires=dependencies,
     setup_requires=['cython>0.25', 'setuptools>=18.0'],
     test_suite='tests',
 )
