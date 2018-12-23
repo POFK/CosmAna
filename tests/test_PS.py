@@ -5,8 +5,14 @@ from mpi4py import MPI
 import mpiunittest as unittest
 import numpy as np
 
+IsShow = True
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    IsShow = False
+
 data_base = None
-#data_base = '/data/dell5/userdir/maotx/ICR/fiducial_ICR/output/snapdir_012/ana/'
+data_base = '/data/dell5/userdir/maotx/ICR/fiducial_ICR/output/snapdir_012/ana/'
 
 
 @unittest.skipUnless(data_base is not None, 'no data base name')
@@ -40,7 +46,6 @@ class TestPS(unittest.TestCase):
             np.testing.assert_allclose(ps, ps_true, rtol=1e-4)
 
     def test_autoPS2(self):
-        import matplotlib.pyplot as plt
         data = np.fromfile(data_base + 'PCS_NG256_grid.bin', dtype=np.float32)
         data = data.reshape(self.utils.Ng, self.utils.Ng, self.utils.Ng)
         data = np.array_split(data, self.comm.size)[self.comm.rank]
@@ -48,15 +53,12 @@ class TestPS(unittest.TestCase):
         self.utils.set_binsnum(50)
         self.utils.set_binstyle('linear')
         ps = self.utils.Run_Getbin1d()
-        if self.comm.rank == 0:
+        if self.comm.rank == 0 and IsShow:
             ps_true = np.loadtxt(data_base + 'PS_auto.txt')
-            """
             plt.plot(ps[:, 0], ps[:, 1], 'k-')
             plt.plot(ps_true[:, 0], ps_true[:, 1], 'r-')
             plt.xscale('log')
             plt.yscale('log')
-            plt.show()
-            """
 
     def test_CrossPS(self):
         data = np.fromfile(data_base + 'PCS_NG256_grid.bin', dtype=np.float32)
@@ -70,6 +72,7 @@ class TestPS(unittest.TestCase):
             ps_true = np.loadtxt(data_base + 'PS_auto.txt')
             np.testing.assert_allclose(ps, ps_true, rtol=1e-4)
 
+    @unittest.skip('skip, test it later')
     def test_PCS(self):
         from CosmAna import PCS as Assign
         from CosmAna import ReadSnapshot
@@ -88,8 +91,8 @@ class TestPS(unittest.TestCase):
         redshift = rs.Info['redshift'][0]
         if redshift < 0:
             redshift = 0.
-        self.utils.checkdir('/tmp/CosmAna')
-        OutName = '/tmp/CosmAna/PCS_test.bin'
+        self.utils.checkdir('./test/CosmAna')
+        OutName = '/test/CosmAna/PCS_test.bin'
         Filenum = np.arange(rs.Filenum)
         Fnum_mpi = np.array_split(Filenum, size)
         # ----- load position --------------------
@@ -113,4 +116,5 @@ class TestPS(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    #plt.show()
+    if IsShow:
+        plt.show()
