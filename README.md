@@ -31,10 +31,11 @@ make install
 tar -xvf mpi4py-3.0.0.tar.gz
 cd mpi4py-3.0.0
 ```
-open file "mpi.cfg" and set
+open file "mpi.cfg", set
 ```
 mpi_dir = path/to/mpich-3.2.1
 ```
+and remove comments of `mpicc` and `mpicxx`. 
 then run
 ```
 python setup.py build
