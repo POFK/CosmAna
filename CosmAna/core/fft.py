@@ -26,6 +26,10 @@ class fft(Base):
         forward fftw
         data: 3-D complex64 numpy array, wigh shape [N/size,N,N]
         '''
+        if data.dtype != np.complex64:
+            self.rank_print("!Warning: the input should be 3-D complex64 numpy array for fft!\n")
+            data = data.astype(np.complex64)
+
         return self.libfftw.forward(self.comm, data)
 
     def ifft(self, datak):
@@ -33,5 +37,8 @@ class fft(Base):
         backward fftw
         datak: 3-D complex64 numpy array, wigh shape [N/size,N,N]
         '''
+        if datak.dtype != np.complex64:
+            self.rank_print("!Warning: the input should be 3-D complex64 numpy array for ifft!\n")
+            datak = datak.astype(np.complex64)
         N = datak.shape[-1]
         return self.libfftw.backward(self.comm, datak)/N**3.
