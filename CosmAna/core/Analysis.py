@@ -4,7 +4,8 @@ from mpi4py import MPI
 import numpy as np
 import os
 from Base import Base
-
+from CosmAna.MPI_IO.MPI_IO import fromfile as _fromfile
+from CosmAna.MPI_IO.MPI_IO import tofile as _tofile
 
 class Ana(Base):
 
@@ -49,6 +50,15 @@ class Ana(Base):
             if not isExists:
                 os.makedirs(dirpath)
         self.mybarrier()
+        
+    def fromfile(self, path, shape=[], dtype=np.float32):
+        """
+        :shape:3D shape before splited by MPI size.
+        """
+        return _fromfile(path, self.comm, self.MPI, shape=shape, dtype=dtype)
+    
+    def tofile(self, data, path):
+        return _tofile(data, path, self.comm, self.MPI)
 
 if __name__ == '__main__':
     s = Ana()
