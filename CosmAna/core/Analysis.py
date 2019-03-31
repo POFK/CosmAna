@@ -26,16 +26,6 @@ class Ana(Base):
         self.rank_print('parameters:')
         self.rank_print('N: %d, L: %f' % (self.Ng, self.L))
         self.rank_print('=' * 80)
-        # ----------------------------------------
-        self.Kf = 2 * np.pi / self.L
-        self.H = float(self.L) / self.Ng
-        self.fn = np.fft.fftfreq(self.Ng, 1. / self.Ng).astype(np.float32)
-        # fn: 0,1,2,...,511,-512,-511,-510,...,-2,-1
-        self.mpi_fn = np.array_split(self.fn, self.size)
-        self.shape = self.Ng * self.Ng * self.Ng / self.size
-        self.k_ind = (self.mpi_fn[self.rank][:, None, None]**2.
-                  + self.fn[None, :, None]**2.
-                  + self.fn[None, None, :]**2)**(0.5)
 
     def mybarrier(self):
         return self.comm.barrier()

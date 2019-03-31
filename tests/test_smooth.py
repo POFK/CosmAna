@@ -14,7 +14,7 @@ class TestSmooth(unittest.TestCase):
     def setUp(self):
         Ng = 32
         L = 300.
-        self.utils = Utils(L=L, Ng=Ng)
+        self.utils = Utils(L=L, Ng=Ng, format='f8')
         data = np.zeros([Ng, Ng, Ng], dtype=np.float32)
         self.pos1 = [[Ng / 2, Ng / 2, Ng / 2]]
         self.pos2 = np.array([[Ng / 2, Ng / 2, Ng / 2],

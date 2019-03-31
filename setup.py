@@ -118,7 +118,7 @@ cython_ext_modules += cythonize(
               sources=Ext_path['libfftw'],
               include_dirs=INCL + [FFTW_INCL] + [MPI_INCL],
               library_dirs=[FFTW_LIBS],
-              libraries=['fftw3f_mpi', 'fftw3f']))
+              libraries=['fftw3f_mpi', 'fftw3f', 'fftw3_mpi', 'fftw3']))
 
 ext_modules.append(Extension(NAME + '.Ext_C.libgrid.libgrid',
                              sources=Ext_path['libgrid'],

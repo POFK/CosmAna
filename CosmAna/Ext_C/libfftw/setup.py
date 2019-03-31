@@ -25,10 +25,10 @@ ext_modules = []
 
 ext_modules.append(
     Extension("libfftw",
-              sources=["libfftw.pyx", "pyfftwf.c"],
+              sources=["libfftw.pyx", "pyfftwf.c", "pyfftwd.c"],
               include_dirs=INCL,
               library_dirs=[FFTW_LIBS],
-              libraries=['fftw3f_mpi', 'fftw3f'],
+              libraries=['fftw3f_mpi', 'fftw3f', 'fftw3_mpi', 'fftw3'],
              )
                   )
 

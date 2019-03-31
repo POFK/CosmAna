@@ -11,6 +11,7 @@ class Main(PS):
 
         :L: TODO
         :Ng: TODO
+        :format: data precision, 'f4' or 'f8'
         :**kwargs: TODO
 
         """
