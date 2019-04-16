@@ -151,7 +151,7 @@ setup(
     packages=PACKAGES,
     scripts=SCRIPTS,
     data_files=DATA_FILES,
-#   install_requires=dependencies,
+    install_requires=dependencies,
     setup_requires=['cython>0.25', 'setuptools>=18.0'],
     test_suite='tests',
 )
