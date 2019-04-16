@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+"""It is an old version code!"""
 from CosmAna import Pylib
 from CosmAna import PS
 import numpy as np

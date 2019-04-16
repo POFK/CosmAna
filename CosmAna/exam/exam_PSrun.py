@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+""" It is a old version!!"""
 import sys
 sys.path.append("..")
 from CosmAna.core.PS import PS

@@ -90,7 +90,7 @@ AUTHOR_EMAIL = 'maotianxiang@bao.ac.cn'
 
 URL = 'https://github.com/POFK/CosmAna'
 
-VERSION = '0.2'
+VERSION = '0.2.1'
 
 LICENSE = 'MIT'
 
@@ -118,7 +118,7 @@ cython_ext_modules += cythonize(
               sources=Ext_path['libfftw'],
               include_dirs=INCL + [FFTW_INCL] + [MPI_INCL],
               library_dirs=[FFTW_LIBS],
-              libraries=['fftw3f_mpi', 'fftw3f']))
+              libraries=['fftw3f_mpi', 'fftw3f', 'fftw3_mpi', 'fftw3']))
 
 ext_modules.append(Extension(NAME + '.Ext_C.libgrid.libgrid',
                              sources=Ext_path['libgrid'],
@@ -151,7 +151,7 @@ setup(
     packages=PACKAGES,
     scripts=SCRIPTS,
     data_files=DATA_FILES,
-#   install_requires=dependencies,
+    install_requires=dependencies,
     setup_requires=['cython>0.25', 'setuptools>=18.0'],
     test_suite='tests',
 )

@@ -49,6 +49,11 @@ class PS(Utils):
             self.binspace = np.linspace
         else:
             raise ValueError('binstyle should be "log" or "linear".')
+            
+    def set_binskrange(self, kmin, kmax):
+        """ input wave number, not grid index"""
+        self.bins_kmin = kmin
+        self.bins_kmax = kmax
 
     def logspace_wrapper(self, func):
         def wrapper(*args, **kwargs):
@@ -67,12 +72,18 @@ class PS(Utils):
             return np.c_[MPI_k, MPI_Pk, MPI_n]
 
     def get_bin1d(self):
+        try:
+            max = self.bins_kmax / self.Kf
+            min = self.bins_kmin / self.Kf
+        except AttributeError:
+            max = self.Ng/2
+            min = 1
         try: 
-            bin = self.binspace(1, self.Ng/2, self.bins+1, endpoint=True)
+            bin = self.binspace(min, max, self.bins+1, endpoint=True)
         except AttributeError:
             self.rank_print('can not find parameter binstyle, \
                             use default logspace...')
-            bin = np.logspace(np.log10(1), np.log10(self.Ng/2), 
+            bin = np.logspace(np.log10(min), np.log10(max), 
                               self.bins+1, endpoint=True)
         n_bin = []
         Pk_bin = []

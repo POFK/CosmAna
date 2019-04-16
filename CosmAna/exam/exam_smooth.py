@@ -1,29 +1,49 @@
 # coding: utf-8
-from CosmAna import Utils # must import this line first
-from mpi4py import MPI
+from CosmAna import Main # must import this line first
 import numpy as np
-from CosmAna import MPI_IO 
 
 Ng = 32 # grids number per side
 L = 300. # boxsize
-utils = Utils(L=L, Ng=Ng)
-mpi_io = MPI_IO(comm=utils.comm, MPI=utils.MPI)
+sigma = 15.
 
+
+"""
+float:
+"""
+CA = Main(L=L, Ng=Ng, format='f4') # if float, format='f4'; else if double, format='f8'
 #==================== read data =============================
 path = '/tmp/test.bin'
-mpi_io.datar = np.empty(shape=[Ng * Ng * Ng / utils.size], dtype=np.float32)
-mpi_io.MPI_READ(path=path)
-data = mpi_io.datar.reshape([Ng/utils.size,Ng,Ng])
+data = CA.fromfile(path=path, shape=[Ng, Ng, Ng], dtype=np.float32)
+data = data.reshape([Ng/CA.size,Ng,Ng])
 #==================== smoothing =============================
-sigma = 15.
-datas = utils.Smooth(data, sigma)
+datas = CA.Smooth(data.astype(np.complex64), sigma)
 #==================== save data =============================
-mpi_io.dataw = datas.copy(order='C')
-mpi_io.MPI_WRITE('/tmp/test_s.bin')
+CA.tofile(datas, path='/tmp/test_fs.bin')
 #====================== check ===============================
-if utils.rank == 0:
+if CA.rank == 0:
     import matplotlib.pyplot as plt
-    s = np.fromfile('/tmp/test_s.bin', dtype=np.float32)
+    s = np.fromfile('/tmp/test_fs.bin', dtype=np.float32)
+    s = s.reshape(Ng,Ng,Ng)
+    plt.imshow(s.mean(axis=0))
+    plt.show()
+
+
+"""
+double:
+"""
+CA = Main(L=L, Ng=Ng, format='f8') # if float, format='f4'; else if double, format='f8'
+#==================== read data =============================
+path = '/tmp/test_double.bin'
+data = CA.fromfile(path=path, shape=[Ng, Ng, Ng], dtype=np.float64)
+data = data.reshape([Ng/CA.size,Ng,Ng])
+#==================== smoothing =============================
+datas = CA.Smooth(data.astype(np.complex128), sigma)
+#==================== save data =============================
+CA.tofile(datas, path='/tmp/test_ds.bin')
+#====================== check ===============================
+if CA.rank == 0:
+    import matplotlib.pyplot as plt
+    s = np.fromfile('/tmp/test_ds.bin', dtype=np.float64)
     s = s.reshape(Ng,Ng,Ng)
     plt.imshow(s.mean(axis=0))
     plt.show()
