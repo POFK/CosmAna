@@ -40,6 +40,14 @@ class Ana(Base):
             if not isExists:
                 os.makedirs(dirpath)
         self.mybarrier()
+
+    def clean(self, ps):
+        """
+        remove zeros points.
+        :ps: power spectrum with shape [n, pk, k]
+        """
+        ind = np.where(ps[:, 0] == 0)[0]
+        return np.delete(ps, ind, 0)
         
     def fromfile(self, path, shape=[], dtype=np.float32):
         """

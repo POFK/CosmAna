@@ -3,7 +3,7 @@
 import numpy as np
 
 
-class MPI_IO():
+class MPI_IO(object):
 
     def __init__(self, comm, MPI):
         self.comm = comm

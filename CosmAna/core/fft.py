@@ -53,7 +53,7 @@ class fft(Ana):
         data: 3-D numpy array, wigh shape [N/size,N,N]
         '''
         if data.dtype != self._format[self.format]:
-            self.rank_print("!Warning: the input should be 3-D '%s' numpy array for fft!\n"%self.format)
+            self.rank_print("!Warning: the input should be 3-D '%s' numpy array for fft, but get %s\n"%(self.format, data.dtype))
             data = data.astype(self._format[self.format])
 
         return self.forward(self.comm, data)
@@ -64,7 +64,7 @@ class fft(Ana):
         datak: 3-D numpy array, wigh shape [N/size,N,N]
         '''
         if datak.dtype != self._format[self.format]:
-            self.rank_print("!Warning: the input should be 3-D '%s' numpy array for fft!\n"%self.format)
+            self.rank_print("!Warning: the input should be 3-D '%s' numpy array for fft, but get %s\n"%(self.format, datak.dtype))
             datak = datak.astype(self._format[self.format])
         N = datak.shape[-1]
         return self.backward(self.comm, datak)/N**3.

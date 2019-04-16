@@ -90,7 +90,7 @@ AUTHOR_EMAIL = 'maotianxiang@bao.ac.cn'
 
 URL = 'https://github.com/POFK/CosmAna'
 
-VERSION = '0.2'
+VERSION = '0.2.1'
 
 LICENSE = 'MIT'
 
