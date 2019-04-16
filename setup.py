@@ -6,16 +6,13 @@ import codecs
 from setuptools import setup, Extension
 from distutils.util import convert_path
 from distutils import sysconfig
-#from Cython.Distutils import build_ext
 from Cython.Build import cythonize
 
 
 os.environ["CC"] = 'mpicc'  # set CC compiler
 os.environ["LDSHARED"] = 'mpicc -shared'  # set linker_so
-FFTW_INCL = '/home/mtx/local/fftw-3.3.5/include'
-FFTW_LIBS = '/home/mtx/local/fftw-3.3.5/lib'
-MPI_INCL = '/home/mtx/local/mpich-3.2.1/include'
-INCL = []
+INCL = [os.path.join(os.environ['CONDA_PREFIX'],'include')]
+LIBS = [os.path.join(os.environ['CONDA_PREFIX'],'lib')]
 # ================================================================================
 
 
@@ -90,7 +87,7 @@ AUTHOR_EMAIL = 'maotianxiang@bao.ac.cn'
 
 URL = 'https://github.com/POFK/CosmAna'
 
-VERSION = '0.2.1'
+VERSION = '0.3'
 
 LICENSE = 'MIT'
 
@@ -116,14 +113,13 @@ except ImportError:
 cython_ext_modules += cythonize(
     Extension(NAME + '.Ext_C.libfftw.libfftw',
               sources=Ext_path['libfftw'],
-              include_dirs=INCL + [FFTW_INCL] + [MPI_INCL],
-              library_dirs=[FFTW_LIBS],
+              include_dirs=INCL,
+              library_dirs=LIBS,
               libraries=['fftw3f_mpi', 'fftw3f', 'fftw3_mpi', 'fftw3']))
 
 ext_modules.append(Extension(NAME + '.Ext_C.libgrid.libgrid',
                              sources=Ext_path['libgrid'],
                              include_dirs=INCL,
-                             # define_macros=[('A', '1')], # example for macros
                              )
                    )
 ext_modules = ext_modules + cython_ext_modules
@@ -151,7 +147,7 @@ setup(
     packages=PACKAGES,
     scripts=SCRIPTS,
     data_files=DATA_FILES,
-    install_requires=dependencies,
+#   install_requires=dependencies,
     setup_requires=['cython>0.25', 'setuptools>=18.0'],
     test_suite='tests',
 )
