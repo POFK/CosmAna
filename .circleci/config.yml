@@ -13,6 +13,6 @@ jobs:
      - run:
          name: Code Has Arrived
          command: |
-           ls -al ../
+           ls -al 
            echo '^^^That should look familiar^^^'
 
