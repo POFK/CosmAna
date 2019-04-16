@@ -1,5 +1,5 @@
-# CosmAna
-
+[![BCH compliance](https://bettercodehub.com/edge/badge/POFK/CosmAna?branch=master)](https://bettercodehub.com/)
+# CosmAna 
 
 ## Dependences
 ### install [Miniconda](https://conda.io/miniconda.html) \(python2.7)
