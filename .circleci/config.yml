@@ -1,10 +1,7 @@
 version: 2
 jobs:
   build_python_27:
-
-    docker:
-      - image: condaforge/linux-anvil
-
+    machine: true
     steps:
       - checkout
 
