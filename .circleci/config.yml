@@ -1,59 +1,46 @@
-version: 2.0
+version: 2
 jobs:
- Hello-World:
-   docker:
-     - image: alpine:3.7
-   steps:
-     - run:
-         name: Hello World
-         command: |
-           echo 'Hello World!'
-           echo 'This is the delivery pipeline'
- I-Have-Code:
-   docker:
-     - image: alpine:3.7
-   steps:
-     - checkout
-     - run:
-         name: Code Has Arrived
-         command: |
-           ls -al
-           echo '^^^That should look familiar^^^'
- Run-With-Node:
-   docker:
-     - image: circleci/node:10-browsers
-   steps:
-     - run:
-         name: Running In A Container With Node
-         command: |
-           node -v
- Now-Complete:
-   docker:
-     - image: alpine:3.7
-   steps:
-     - run:
-         name: Approval Complete
-         command: |
-           echo 'Do work once the approval has completed'
+  build_python_27:
+    machine: true
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: miniconda-{{ .Branch }}
+
+      - run:
+          name: install miniconda
+          command: |
+           bash ./.circleci/install_conda.sh
+
+      - save_cache:
+          key: miniconda-{{ .Branch }}
+          paths:
+            - /home/circleci/miniconda
+
+      - run:
+          name: Build
+          command: |
+            source ~/miniconda/bin/activate root
+            conda create -n CosmAna python=2.7
+            source activate CosmAna
+            conda install --file requirements.txt
+            python setup.py build
+            python setup.py install
+
+      - run:
+          name: Test
+          command: |
+            cd tests && python runtests.py
+            
+      - run:
+          name: MpiTest
+          command: |
+            cd tests && mpirun -np 4 python runtests.py
+            
 
 workflows:
- version: 2
- Example_Workflow:
-   jobs:
-     - Hello-World
-     - I-Have-Code:
-         requires:
-           - Hello-World
-     - Run-With-Node:
-         requires:
-           - Hello-World
-     - Hold-For-Approval:
-         type: approval
-         requires:
-           - Run-With-Node
-           - I-Have-Code
-     - Now-Complete:
-         requires:
-           - Hold-For-Approval
-
-
+  version: 2
+  build_and_test:
+    jobs:
+      - build_python_27
