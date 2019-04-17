@@ -1,12 +1,6 @@
 version: 2
 jobs:
   build_python_27:
-
-    branches:
-      only:
-        - master
-        - /CI*/
-
     machine: true
 
     steps:
