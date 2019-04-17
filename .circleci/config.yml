@@ -5,7 +5,6 @@ jobs:
       only:
         - master
         - /CI*/
-
     machine: true
 
     steps:
