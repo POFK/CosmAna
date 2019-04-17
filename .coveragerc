@@ -1,0 +1,4 @@
+[run]
+source=CosmAna
+branch = True
+parallel=True

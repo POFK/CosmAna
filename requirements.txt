@@ -1,2 +1,7 @@
 Cython>=0.25
-numpy==1.14.0
+numpy>=1.14.0
+mpi4py
+mpich
+fftw=3.3.8=mpi_mpich_h3f9e1be_1005
+gxx_linux-64
+

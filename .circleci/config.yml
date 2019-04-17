@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  build_python_27:
+
+    machine: true
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: miniconda-{{ .Branch }}
+
+      - run:
+          name: install miniconda
+          command: |
+           bash ./.circleci/install_conda.sh
+
+      - save_cache:
+          key: miniconda-{{ .Branch }}
+          paths:
+            - /home/circleci/miniconda
+
+      - run:
+          name: Build
+          command: |
+            source ~/miniconda/bin/activate root
+            conda create -n CosmAna python=2.7
+            source activate CosmAna
+            pip install codecov coverage
+            conda install --file requirements.txt
+            python setup.py build
+            python setup.py install
+
+      - run:
+          name: Test
+          command: |
+            source ~/miniconda/bin/activate CosmAna
+            cd tests && coverage run runtests.py
+            
+      - run:
+          name: MpiTest
+          command: |
+            source ~/miniconda/bin/activate CosmAna
+            cd tests && mpirun -np 4 coverage run runtests.py
+
+      - run: 
+          name: coverage
+          command: |
+            source ~/miniconda/bin/activate CosmAna
+            codecov
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_python_27

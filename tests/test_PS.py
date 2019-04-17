@@ -12,7 +12,7 @@ except ImportError:
     IsShow = False
 
 data_base = None
-data_base = '/data/dell5/userdir/maotx/ICR/fiducial_ICR/output/snapdir_012/ana/'
+#data_base = '/data/dell5/userdir/maotx/ICR/fiducial_ICR/output/snapdir_012/ana/'
 
 
 @unittest.skipUnless(data_base is not None, 'no data base name')
