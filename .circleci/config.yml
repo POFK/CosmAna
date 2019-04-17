@@ -27,7 +27,7 @@ jobs:
             conda create -n CosmAna python=2.7
             source activate CosmAna
             conda install --file requirements.txt
-            pip install codacy-coverage coverage
+            pip install coverage
             python setup.py build
             python setup.py install
 
@@ -42,6 +42,8 @@ jobs:
           command: |
             source ~/miniconda/bin/activate CosmAna
             cd tests && mpirun -np 4 coverage run runtests.py
+
+      - run: codecov
 
 workflows:
   version: 2
