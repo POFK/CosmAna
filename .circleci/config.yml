@@ -42,7 +42,7 @@ jobs:
             source ~/miniconda/bin/activate CosmAna
             cd tests && mpirun -np 4 python runtests.py
 
-      - run: .circleci/upload-coverage
+      - run: .circleci/upload_coverage
             
 
 workflows:
