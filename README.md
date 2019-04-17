@@ -1,5 +1,6 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/POFK/CosmAna?branch=master)](https://bettercodehub.com/)
 [![codecov](https://codecov.io/gh/POFK/CosmAna/branch/master/graph/badge.svg)](https://codecov.io/gh/POFK/CosmAna)
+[![CircleCI](https://circleci.com/gh/POFK/CosmAna.svg?style=svg)](https://circleci.com/gh/POFK/CosmAna)
 # CosmAna 
 
 ## Dependences
