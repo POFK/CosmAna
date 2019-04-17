@@ -2,11 +2,6 @@ version: 2
 jobs:
   build_python_27:
 
-    environment:
-      LANG: en_US.UTF-8
-      LANGUAGE: en_US.UTF-8
-      LC_ALL: en_US.UTF-8
-
     machine: true
 
     steps:
@@ -46,6 +41,8 @@ jobs:
           command: |
             source ~/miniconda/bin/activate CosmAna
             cd tests && mpirun -np 4 python runtests.py
+
+      - run: .circleci/upload-coverage
             
 
 workflows:

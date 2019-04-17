@@ -10,3 +10,4 @@ source ~/miniconda/bin/activate root
 conda config --set always_yes yes
 conda update -q conda
 conda config --add channels conda-forge
+pip install --no-deps codacy-coverage coverage
