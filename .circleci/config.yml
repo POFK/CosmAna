@@ -31,11 +31,13 @@ jobs:
       - run:
           name: Test
           command: |
+            source ~/miniconda/bin/activate root
             cd tests && python runtests.py
             
       - run:
           name: MpiTest
           command: |
+            source ~/miniconda/bin/activate root
             cd tests && mpirun -np 4 python runtests.py
             
 
