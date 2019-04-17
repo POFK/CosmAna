@@ -44,8 +44,9 @@ jobs:
 
       - deploy:
           name: Deploy
+          environment:
+            CODECOV_TOKEN: "d1748762-6666-4770-bc15-f5bc622edb84"
           command: |
-            export CODECOV_TOKEN="d1748762-6666-4770-bc15-f5bc622edb84"
             source ~/miniconda/bin/activate CosmAna
             pip install codacy-coverage coverage
             .circleci/upload_coverage
