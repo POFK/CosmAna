@@ -27,6 +27,7 @@ jobs:
             conda create -n CosmAna python=2.7
             source activate CosmAna
             conda install --file requirements.txt
+            pip install codacy-coverage coverage
             python setup.py build
             python setup.py install
 
@@ -34,24 +35,13 @@ jobs:
           name: Test
           command: |
             source ~/miniconda/bin/activate CosmAna
-            cd tests && python runtests.py
+            cd tests && coverage run runtests.py
             
       - run:
           name: MpiTest
           command: |
             source ~/miniconda/bin/activate CosmAna
-            cd tests && mpirun -np 4 python runtests.py
-
-      - deploy:
-          name: Deploy
-          environment:
-            CODECOV_TOKEN: "d1748762-6666-4770-bc15-f5bc622edb84"
-          command: |
-            source ~/miniconda/bin/activate CosmAna
-            pip install codacy-coverage coverage
-            .circleci/upload_coverage
-            python-codacy-coverage -r coverage.xml
-            
+            cd tests && mpirun -np 4 coverage run runtests.py
 
 workflows:
   version: 2
