@@ -26,6 +26,7 @@ jobs:
             source ~/miniconda/bin/activate root
             conda create -n CosmAna python=2.7
             source activate CosmAna
+            pip install codecov coverage
             conda install --file requirements.txt
             python setup.py build
             python setup.py install
@@ -45,7 +46,7 @@ jobs:
       - run: 
           name: coverage
           command: |
-            pip install codecov coverage
+            source ~/miniconda/bin/activate CosmAna
             codecov
 
 workflows:
