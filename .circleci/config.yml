@@ -46,7 +46,7 @@ jobs:
           name: Deploy
           command: |
             source ~/miniconda/bin/activate CosmAna
-            pip install --no-deps codacy-coverage coverage
+            pip install codacy-coverage coverage
             .circleci/upload_coverage
             python-codacy-coverage -r coverage.xml
             
