@@ -73,6 +73,6 @@ if __name__ == '__main__':
     tofile(data, '/tmp/test.bin', comm, MPI)
     if rank == 0:
         s = np.fromfile('/tmp/test.bin', dtype=np.float32, count=12)
-        print s
+        print(s)
     datar = fromfile('/tmp/test.bin', comm, MPI, shape=[12], dtype=np.float32)
-    print rank, datar
+    print(rank, datar)

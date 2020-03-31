@@ -3,7 +3,7 @@
 from CosmAna.Ext_C import libfftw
 '''!!! libfftw must be imported first !!!'''
 import numpy as np
-from Analysis import Ana
+from CosmAna.core.Analysis import Ana
 
 
 class fft(Ana):

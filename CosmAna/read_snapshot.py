@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding=utf-8
 import numpy as np
+import logging
+
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 
 class ReadSnapshot():
@@ -47,9 +50,9 @@ class ReadSnapshot():
         b = np.fromfile(file=f, dtype=np.int32, count=1)[0]
         f.close()
         if not (a == b and a == (length * 4 * 3)):
-            print 'error in pos!'
-            print a
-            print b
+            logging.info('error in pos!')
+            logging.info(a)
+            logging.info(b)
         else:
             return pos
 
@@ -58,16 +61,16 @@ class ReadSnapshot():
         f = open(self.Path + '%d' % Filenum, 'r')
         info = np.fromfile(file=f, dtype=self.dt, count=1)
         length = info['npart'][0][1]
-        print 'reading vel:'
+        logging.info('reading vel:')
         f.seek(self.Info['head'][0] + 4 + 4 + length * 4 * 3 + 4 + 4)
         a = np.fromfile(file=f, dtype=np.int32, count=1)[0]
         vel = np.fromfile(file=f, dtype=dtype_data, count=info['npart'][0][1])
         b = np.fromfile(file=f, dtype=np.int32, count=1)[0]
         f.close()
         if not (a == b and a == (length * 4 * 3)):
-            print 'error in pos!'
-            print a
-            print b
+            logging.info('error in pos!')
+            logging.info(a)
+            logging.info(b)
         else:
             return vel
 
@@ -75,7 +78,7 @@ class ReadSnapshot():
         f = open(self.Path + '%d' % Filenum, 'r')
         info = np.fromfile(file=f, dtype=self.dt, count=1)
         length = info['npart'][0][1]
-        print 'reading PID:'
+        logging.info('reading PID:')
         f.seek(
             self.Info['head'][0] + 4 + 4 +
             length * 4 * 3 + 4 + 4 +
@@ -86,9 +89,9 @@ class ReadSnapshot():
         b = np.fromfile(file=f, dtype=np.int32, count=1)
         f.close()
         if not (a == b and a == (length * 4 * 2)):
-            print 'error in PID!'
-            print a
-            print b
+            logging.info('error in PID!')
+            logging.info(a)
+            logging.info(b)
         else:
             return PID
 
@@ -99,8 +102,8 @@ if __name__ == '__main__':
 #   Path = '/data/dell1/userdir/maotx/output/gadget/test2/snapdir_005/snapshot_005.'
     NumOfFile = 64
     f = ReadSnapshot(Path)
-    print f.Info
-    print f.Info.dtype
+    logging.info(f.Info)
+    logging.info(f.Info.dtype)
 '''
 #========================================
     PID = []

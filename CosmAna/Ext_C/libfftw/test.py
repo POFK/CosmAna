@@ -19,7 +19,7 @@ fa = fft.forwardF(comm, mpia)
 
 npifft = np.fft.ifftn(np.fft.fftn(a.reshape(N,N,N)))
 #assert np.allclose(fft.backwardF(comm,fa)/N**3,npifft) 
-print rank, fft.backwardF(comm, fa)/N**3
+print(rank, fft.backwardF(comm, fa)/N**3)
 #--------------------------------------------------------------------------------
 N = 4
 a = np.arange(N**3,dtype=np.complex128).reshape(N,N,N)
@@ -32,4 +32,4 @@ fa = fft.forwardD(comm, mpia)
 npifft = np.fft.ifftn(np.fft.fftn(a.reshape(N,N,N)))
 #assert np.allclose(fft.backwardD(comm,fa)/N**3,npifft) 
 #--------------------------------------------------------------------------------
-print rank, fft.backwardD(comm, fa)/N**3
+print(rank, fft.backwardD(comm, fa)/N**3)

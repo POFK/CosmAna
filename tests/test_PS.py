@@ -5,6 +5,9 @@ from mpi4py import MPI
 import mpiunittest as unittest
 import numpy as np
 
+import logging
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+
 IsShow = True
 try:
     import matplotlib.pyplot as plt
@@ -83,8 +86,8 @@ class TestPS(unittest.TestCase):
         Path = data_base[:-4] + 'snapshot_012.'
         rs = ReadSnapshot(Path)
         if rank == 0:
-            print rs.Info
-            print rs.Info.dtype
+            logging.info(rs.Info)
+            logging.info(rs.Info.dtype)
         Ng = self.utils.Ng
         Boxsize = self.utils.L
         Np = rs.Info['npartall'][0][1]

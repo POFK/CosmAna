@@ -4,6 +4,7 @@ from ctypes import *
 import numpy as np
 import numpy.ctypeslib as npct
 import os
+import glob
 
 
 class Pos(Structure):
@@ -13,8 +14,10 @@ class Pos(Structure):
 _libdir = os.path.dirname(__file__)
 if _libdir == '':
     _libdir = './'
-_libpath = os.path.join(_libdir, "libgrid.so")
-libcd = CDLL(_libpath)
+_libpath = os.path.join(_libdir, 'libgrid*.so')
+_libpath = glob.glob(_libpath)
+assert len(_libpath)==1, 'Multiple libgrid*.so, {}'.format(_libpath)
+libcd = CDLL(_libpath[0])
 
 # setup the return typs and argument types
 libcd.Griding_NGP.restype = POINTER(c_double)

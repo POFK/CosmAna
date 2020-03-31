@@ -2,12 +2,14 @@
 # coding=utf-8
 import os
 import glob
+import logging
 import codecs
 from setuptools import setup, Extension
 from distutils.util import convert_path
 from distutils import sysconfig
 from Cython.Build import cythonize
 
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 os.environ["CC"] = 'mpicc'  # set CC compiler
 os.environ["LDSHARED"] = 'mpicc -shared'  # set linker_so
@@ -101,8 +103,9 @@ cython_ext_modules = []
 
 try:
     import mpi4py
-except ImportError:
-    print "mpi4py is needed!"
+except:
+    logging.error("mpi4py is needed!")
+    exit()
 
 try:
     import numpy

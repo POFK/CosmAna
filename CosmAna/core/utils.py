@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-from fft import fft
+from CosmAna import fft
 '''!!! fft must be imported first !!!'''
 import numpy as np
 

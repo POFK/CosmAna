@@ -5,6 +5,8 @@ from mpi4py import MPI
 import mpiunittest as unittest
 import numpy as np
 import sys
+import logging
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 @unittest.skipIf(MPI.COMM_WORLD.Get_size() > 4, 'mpi-world-size>4')
 class TestFFT(unittest.TestCase):

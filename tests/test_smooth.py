@@ -5,6 +5,8 @@ from mpi4py import MPI
 import mpiunittest as unittest
 import numpy as np
 
+import logging
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
 @unittest.skipIf(MPI.COMM_WORLD.Get_size() > 4, 'mpi-world-size>4')
 class TestSmooth(unittest.TestCase):
@@ -16,11 +18,11 @@ class TestSmooth(unittest.TestCase):
         L = 300.
         self.utils = Utils(L=L, Ng=Ng, format='f8')
         data = np.zeros([Ng, Ng, Ng], dtype=np.float32)
-        self.pos1 = [[Ng / 2, Ng / 2, Ng / 2]]
-        self.pos2 = np.array([[Ng / 2, Ng / 2, Ng / 2],
-                              [Ng / 2 + 4, Ng / 2 - 3, Ng / 2 + 1],
+        self.pos1 = [[Ng // 2, Ng // 2, Ng // 2]]
+        self.pos2 = np.array([[Ng // 2, Ng // 2, Ng // 2],
+                              [Ng // 2 + 4, Ng // 2 - 3, Ng // 2 + 1],
                               [2, 1, 1],
-                              [-1, -1, Ng / 2]])
+                              [-1, -1, Ng // 2]])
         self.data1 = data.copy()
         for i, j, k in self.pos1:
             self.data1[i, j, k] += 1

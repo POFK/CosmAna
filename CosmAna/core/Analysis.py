@@ -3,7 +3,7 @@
 from mpi4py import MPI
 import numpy as np
 import os
-from Base import Base
+from CosmAna.core.Base import Base
 from CosmAna.MPI_IO.MPI_IO import fromfile as _fromfile
 from CosmAna.MPI_IO.MPI_IO import tofile as _tofile
 
@@ -32,7 +32,7 @@ class Ana(Base):
 
     def rank_print(self, str=''):
         if self.rank == 0:
-            print str
+            print(str)
 
     def checkdir(self, dirpath):
         if self.rank == 0:

@@ -59,7 +59,7 @@ class TestGrid(unittest.TestCase):
         gx = gpos[:, None, None] + zeros
         gy = gpos[None, :, None] + zeros
         gz = gpos[None, None, :] + zeros
-        for i in xrange(self.pos.shape[0]):
+        for i in range(self.pos.shape[0]):
             weight = self.GetWeight(gx, gy, gz, self.pos[i], self.weight_CIC)
             zeros += weight
         zeros[1, :, :] += zeros[-1, :, :]
@@ -80,7 +80,7 @@ class TestGrid(unittest.TestCase):
         gx = gpos[:, None, None] + zeros
         gy = gpos[None, :, None] + zeros
         gz = gpos[None, None, :] + zeros
-        for i in xrange(self.pos.shape[0]):
+        for i in range(self.pos.shape[0]):
             weight = self.GetWeight(gx, gy, gz, self.pos[i], self.weight_PCS)
             zeros += weight
         zeros[2:4, :, :] += zeros[-2:, :, :]

@@ -1,7 +1,6 @@
-Cython>=0.25
-numpy>=1.14.0
+Cython
+numpy
 mpi4py
 mpich
-fftw=3.3.8=mpi_mpich_h3f9e1be_1005
+fftw=3.3.8=mpi_mpich_h3f9e1be_1010
 gxx_linux-64
-
