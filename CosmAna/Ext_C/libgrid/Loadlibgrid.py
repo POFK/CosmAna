@@ -1,11 +1,11 @@
-#!/usr/bin/env python
-# coding=utf-8
 from ctypes import *
 import numpy as np
 import numpy.ctypeslib as npct
 import os
+import sys
 import glob
 
+version = str(sys.version_info.major)+str(sys.version_info.minor)
 
 class Pos(Structure):
     _fields_ = [('x', c_float), ('y', c_float), ('z', c_float)]
@@ -15,8 +15,12 @@ _libdir = os.path.dirname(__file__)
 if _libdir == '':
     _libdir = './'
 _libpath = os.path.join(_libdir, 'libgrid*.so')
-_libpath = glob.glob(_libpath)
-assert len(_libpath)==1, 'Multiple libgrid*.so, {}'.format(_libpath)
+lp = []
+for lib in glob.glob(_libpath):
+    if version in lib:
+        lp.append(lib)
+_libpath = lp
+assert len(_libpath)==1, 'Multiple libgrid*.so or library not found! {}'.format(_libpath)
 libcd = CDLL(_libpath[0])
 
 # setup the return typs and argument types

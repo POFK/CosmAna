@@ -14,7 +14,7 @@ CA = Main(L=L, Ng=Ng, format='f4') # if float, format='f4'; else if double, form
 #==================== read data =============================
 path = '/tmp/test.bin'
 data = CA.fromfile(path=path, shape=[Ng, Ng, Ng], dtype=np.float32)
-data = data.reshape([Ng/CA.size,Ng,Ng])
+data = data.reshape([Ng//CA.size,Ng,Ng])
 #==================== smoothing =============================
 datas = CA.Smooth(data.astype(np.complex64), sigma)
 #==================== save data =============================

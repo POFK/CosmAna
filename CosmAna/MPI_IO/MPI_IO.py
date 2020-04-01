@@ -40,7 +40,7 @@ def fromfile(path, comm, MPI, shape=[], dtype=np.float32):
     l = np.array(shape).prod()
     assert shape[0]%mpi_io.size==0, \
             "processes number: %d, shape: %s"%(mpi_io.size, shape)
-    mpi_io.datar = np.empty([l/mpi_io.size], dtype=dtype)
+    mpi_io.datar = np.empty([l//mpi_io.size], dtype=dtype)
     mpi_io.MPI_READ(path=path)
     return mpi_io.datar.copy()
 
